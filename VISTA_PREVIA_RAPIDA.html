@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hogar Finanzas Premium ✅</title>
+
+    <!-- Scripts Externos -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        app: { bg: '#050505', card: '#111111', surface: '#1a1a1a', border: 'rgba(255,255,255,0.08)' }
+                    },
+                    borderRadius: { '4xl': '2rem', '5xl': '2.5rem' },
+                    animation: { 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite' }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.15) 0%, transparent 40%), radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.1) 0%, transparent 40%), radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1) 0%, #050505 100%);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .loader {
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-top: 2px solid #8b5cf6;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        input,
+        select {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            transition: all 0.2s ease;
+        }
+
+        input:focus,
+        select:focus {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: #8b5cf6 !important;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mesh-gradient"></div>
+    <div id="root"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, query, where, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        window.firebaseInstances = { initializeApp, getFirestore, doc, setDoc, getDoc, collection, query, where, onSnapshot, deleteDoc };
+    </script>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
+        const { initializeApp, getFirestore, doc, setDoc, getDoc, collection, query, where, onSnapshot, deleteDoc } = window.firebaseInstances;
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZCsbZzFJtGCvo4sLCGiqlYFwv-oQBLJQ",
+            authDomain: "gastify-ejgm1.firebaseapp.com",
+            projectId: "gastify-ejgm1",
+            storageBucket: "gastify-ejgm1.firebasestorage.app",
+            messagingSenderId: "999358160998",
+            appId: "1:999358160998:web:c904e7789deecd4da90da7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const hashPin = (pin) => {
+            let hash = 0;
+            for (let i = 0; i < pin.length; i++) { hash = ((hash << 5) - hash) + pin.charCodeAt(i); hash |= 0; }
+            return hash.toString();
+        };
+
+        const Icon = ({ name, size = 24, className = "" }) => {
+            useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, [name]);
+            return <i data-lucide={name} style={{ width: size, height: size }} className={className}></i>;
+        };
+
+        const EXPENSE_CATEGORIES = ['Casa', 'Alimentacion', 'Transporte', 'Salud', 'Bienestar', 'Entretenimiento', 'Viajes', 'Otros'];
+
+        // --- LOGIN COMPONENT ---
+        const Login = ({ onLogin }) => {
+            const [isReg, setIsReg] = useState(false);
+            const [user, setUser] = useState('');
+            const [pin, setPin] = useState('');
+            const [members, setMembers] = useState(['', '']);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState('');
+
+            const handle = async () => {
+                if (!user || pin.length !== 4) return setError('Ingresa tu usuario y PIN de 4 dígitos');
+                setLoading(true); setError('');
+                try {
+                    const docRef = doc(db, "households", user.toLowerCase().trim());
+                    if (isReg) {
+                        const mNames = members.filter(n => n.trim());
+                        if (mNames.length < 1) throw new Error('Agrega al menos una persona');
+                        const snap = await getDoc(docRef);
+                        if (snap.exists()) throw new Error('Este nombre de hogar ya está registrado');
+                        const h = { id: crypto.randomUUID(), username: user.toLowerCase().trim(), pinHash: hashPin(pin), members: mNames.map(n => ({ id: crypto.randomUUID(), name: n })) };
+                        await setDoc(docRef, h);
+                        localStorage.setItem('hf_user', h.username); onLogin(h);
+                    } else {
+                        const snap = await getDoc(docRef);
+                        if (snap.exists() && snap.data().pinHash === hashPin(pin)) {
+                            localStorage.setItem('hf_user', snap.data().username); onLogin(snap.data());
+                        } else throw new Error('Usuario o PIN incorrectos');
+                    }
+                } catch (e) { setError(e.message); }
+                setLoading(false);
+            };
+
+            return (
+                <div className="flex flex-col items-center justify-center min-h-screen p-6 slide-up">
+                    <div className="w-full max-w-sm glass p-10 rounded-5xl relative overflow-hidden">
+                        <div className="text-center mb-10">
+                            <div className="inline-flex p-4 rounded-3xl bg-brand-500/10 text-brand-400 mb-6"><Icon name="home" size={32} /></div>
+                            <h1 className="text-4xl font-extrabold tracking-tight text-white mb-2">Hogar Finanzas</h1>
+                            <p className="text-zinc-400 text-sm font-medium">Gestiona tu hogar con elegancia</p>
+                        </div>
+                        <div className="space-y-5">
+                            <input placeholder="Nombre del hogar" className="w-full p-4 rounded-2xl outline-none" value={user} onChange={e => setUser(e.target.value)} />
+                            <input type="password" placeholder="PIN" maxLength="4" className="w-full p-4 rounded-2xl text-center font-mono text-3xl tracking-[0.5em] outline-none" value={pin} onChange={e => setPin(e.target.value.replace(/\D/g, ''))} />
+                            {isReg && members.map((m, i) => <input key={i} placeholder={`Persona ${i + 1}`} className="w-full p-3 rounded-xl text-sm outline-none mb-2" value={m} onChange={e => { const n = [...members]; n[i] = e.target.value; setMembers(n); }} />)}
+                            {isReg && <button onClick={() => setMembers([...members, ''])} className="text-[10px] uppercase font-bold text-brand-400 ml-4">+ Miembro</button>}
+                            {error && <p className="text-red-400 text-xs text-center font-bold">{error}</p>}
+                            <button disabled={loading} onClick={handle} className="w-full btn-primary text-white py-5 rounded-3xl font-bold flex items-center justify-center space-x-3 mt-4">
+                                {loading ? <div className="loader"></div> : <><span className="text-sm font-bold uppercase tracking-widest">{isReg ? 'Registrar' : 'Entrar'}</span><Icon name="chevron-right" size={20} /></>}
+                            </button>
+                            <button onClick={() => setIsReg(!isReg)} className="w-full text-xs text-zinc-500 font-semibold py-2">{isReg ? 'Ya tengo hogar' : 'Nuevo hogar'}</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- DASHBOARD COMPONENT ---
+        const Dashboard = ({ household, transactions, latestRate, onNav }) => {
+            const totals = useMemo(() => transactions.reduce((acc, t) => {
+                if (t.type === 'income') t.currency === 'VES' ? acc.vI += t.amount : acc.uI += t.amount;
+                else if (t.type === 'expense') t.currency === 'VES' ? acc.vE += t.amount : acc.uE += t.amount;
+                else if (t.type === 'usd_purchase') { acc.vE += t.vesPaid; acc.uI += t.usdReceived; }
+                return acc;
+            }, { vI: 0, vE: 0, uI: 0, uE: 0 }), [transactions]);
+
+            const vBal = totals.vI - totals.vE;
+            const uBal = totals.uI - totals.uE;
+
+            // Report summary for current month
+            const monthStart = new Date(); monthStart.setDate(1); monthStart.setHours(0, 0, 0, 0);
+            const currentMonthTransactions = transactions.filter(t => new Date(t.date) >= monthStart);
+
+            const categorySummary = useMemo(() => {
+                const cats = {};
+                currentMonthTransactions.filter(t => t.type === 'expense').forEach(t => {
+                    const usdVal = t.currency === 'USD' ? t.amount : (t.amount / (t.rateSnapshot || latestRate));
+                    cats[t.category] = (cats[t.category] || 0) + usdVal;
+                });
+                return Object.entries(cats).sort((a, b) => b[1] - a[1]).slice(0, 3);
+            }, [currentMonthTransactions, latestRate]);
+
+            const incomeSummary = useMemo(() => {
+                const sources = {};
+                currentMonthTransactions.filter(t => t.type === 'income').forEach(t => {
+                    const usdVal = t.currency === 'USD' ? t.amount : (t.amount / (t.rateSnapshot || latestRate));
+                    const source = t.business || 'Varios';
+                    sources[source] = (sources[source] || 0) + usdVal;
+                });
+                return Object.entries(sources).sort((a, b) => b[1] - a[1]).slice(0, 2);
+            }, [currentMonthTransactions, latestRate]);
+
+            return (
+                <div className="p-6 pb-40 max-w-md mx-auto slide-up">
+                    <header className="flex justify-between items-center py-6">
+                        <div><p className="text-[10px] font-black text-brand-400 uppercase tracking-widest mb-1">Tu Hogar</p><h2 className="text-2xl font-extrabold">{household.username}</h2></div>
+                        <button onClick={() => onNav('settings')} className="glass p-3 rounded-2xl"><Icon name="settings" size={20} className="text-zinc-500" /></button>
+                    </header>
+
+                    <div className="space-y-6">
+                        <div className="glass p-8 rounded-5xl btn-primary relative overflow-hidden">
+                            <p className="text-[10px] font-black text-white/60 uppercase tracking-widest mb-2">Disponible Total (USD)</p>
+                            <h3 className="text-5xl font-extrabold text-white">${uBal.toLocaleString(undefined, { minimumFractionDigits: 2 })}</h3>
+                        </div>
+
+                        <div className="bg-zinc-900/50 border border-white/5 p-6 rounded-4xl">
+                            <div className="flex justify-between items-center mb-4">
+                                <p className="text-[10px] font-black text-zinc-500 uppercase">Bolívares</p>
+                                <p className="text-lg font-bold">Bs. {vBal.toLocaleString()}</p>
+                            </div>
+                            <div className="flex justify-between items-center text-[10px] font-bold text-zinc-500">
+                                <span>Tasa BCV: {latestRate}</span>
+                                <span className="text-brand-400">≈ ${(vBal / latestRate).toFixed(2)} USD</span>
+                            </div>
+                        </div>
+
+                        {/* Summary Section */}
+                        <div className="space-y-4">
+                            <div className="flex justify-between items-end">
+                                <h4 className="text-[11px] font-black text-zinc-500 uppercase tracking-widest">Resumen del Mes</h4>
+                                <button onClick={() => onNav('reports')} className="text-[10px] font-bold text-brand-400 underline">Ver todo</button>
+                            </div>
+
+                            <div className="glass p-6 rounded-4xl space-y-5">
+                                {categorySummary.length > 0 ? (
+                                    <div className="space-y-4">
+                                        <p className="text-[9px] font-black text-zinc-600 uppercase">Gastos Principales</p>
+                                        {categorySummary.map(([cat, val]) => (
+                                            <div key={cat} className="space-y-1.5">
+                                                <div className="flex justify-between text-[11px] font-bold"><span>{cat}</span><span>${val.toFixed(2)}</span></div>
+                                                <div className="h-1.5 bg-white/5 rounded-full overflow-hidden"><div className="h-full bg-brand-500" style={{ width: `${Math.min(100, (val / uBal) * 100 || 0)}%` }}></div></div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : <p className="text-[10px] text-zinc-600 italic">No hay gastos este mes</p>}
+
+                                {incomeSummary.length > 0 && (
+                                    <div className="pt-2 border-t border-white/5">
+                                        <p className="text-[9px] font-black text-zinc-600 uppercase mb-3">Fuentes de Ingreso</p>
+                                        {incomeSummary.map(([src, val]) => (
+                                            <div key={src} className="flex justify-between items-center mb-2">
+                                                <span className="text-[11px] font-medium text-emerald-400">{src}</span>
+                                                <span className="text-[11px] font-bold text-white">${val.toFixed(2)}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <button onClick={() => onNav('add')} className="glass p-6 rounded-4xl flex flex-col items-center space-y-3"><div className="bg-white text-black p-4 rounded-2xl"><Icon name="plus" size={24} /></div><span className="font-extrabold text-[10px] tracking-widest uppercase text-zinc-400">Nuevo</span></button>
+                            <button onClick={() => onNav('list')} className="glass p-6 rounded-4xl flex flex-col items-center space-y-3"><div className="bg-zinc-800 p-4 rounded-2xl"><Icon name="clock" size={24} /></div><span className="font-extrabold text-[10px] tracking-widest uppercase text-zinc-400">Historial</span></button>
+                        </div>
+                    </div>
+
+                    <nav className="fixed bottom-8 left-8 right-8 h-20 glass rounded-5xl flex items-center justify-around z-50 px-6">
+                        <button onClick={() => onNav('dash')} className="p-2 text-brand-400"><Icon name="grid" size={24} /></button>
+                        <button onClick={() => onNav('reports')} className="p-2 text-zinc-500"><Icon name="pie-chart" size={24} /></button>
+                        <button onClick={() => onNav('add')} className="btn-primary p-5 rounded-3xl -mt-16 text-white border-4 border-[#050505]"><Icon name="plus" size={32} /></button>
+                        <button onClick={() => onNav('list')} className="p-2 text-zinc-500"><Icon name="history" size={24} /></button>
+                    </nav>
+                </div>
+            );
+        };
+
+        // --- TRANSACTION FORM COMPONENT ---
+        const TransactionForm = ({ members, householdId, onBack, onSave, editData }) => {
+            const [type, setType] = useState(editData?.type || 'expense');
+            const [cur, setCur] = useState(editData?.currency || 'VES');
+            const [amt, setAmt] = useState(editData?.amount || '');
+            const [vP, setVP] = useState(editData?.vesPaid || '');
+            const [uR, setUR] = useState(editData?.usdReceived || '');
+            const [cat, setCat] = useState(editData?.category || (type === 'income' ? 'Ingreso' : 'Alimentacion'));
+            const [mId, setMId] = useState(editData?.memberId || members[0]?.id || '');
+            const [bus, setBus] = useState(editData?.business || '');
+            const [date, setDate] = useState(editData?.date?.split('T')[0] || new Date().toISOString().split('T')[0]);
+            const [loading, setLoading] = useState(false);
+
+            const submit = async () => {
+                const finalAmt = type === 'usd_purchase' ? parseFloat(vP) : parseFloat(amt);
+                if (isNaN(finalAmt) || finalAmt <= 0) return alert('Ingresa un monto válido');
+                setLoading(true);
+                try {
+                    const txId = editData?.id || crypto.randomUUID();
+                    const tx = { id: txId, householdId, date: new Date(date).toISOString(), type, currency: type === 'usd_purchase' ? 'VES' : cur, amount: finalAmt, memberId: mId, business: bus, category: type === 'usd_purchase' ? 'Ahorro' : cat, vesPaid: type === 'usd_purchase' ? parseFloat(vP) : null, usdReceived: type === 'usd_purchase' ? parseFloat(uR) : null, createdAt: new Date().toISOString() };
+                    await setDoc(doc(db, "transactions", txId), tx); onSave();
+                } catch (e) { alert(e.message); }
+                setLoading(false);
+            };
+
+            return (
+                <div className="p-6 pb-40 max-w-md mx-auto slide-up">
+                    <header className="flex items-center space-x-6 py-6"><button onClick={onBack} className="glass p-3 rounded-2xl"><Icon name="arrow-left" size={20} /></button><h2 className="text-2xl font-extrabold">Nuevo Ticket</h2></header>
+                    <div className="flex p-1.5 glass rounded-3xl mb-6">
+                        {['expense', 'income', 'usd_purchase'].map(t => <button key={t} onClick={() => { setType(t); setCat(t === 'income' ? 'Ingreso' : (t === 'expense' ? 'Alimentacion' : 'Ahorro')); }} className={`flex-1 py-3 text-[10px] font-black uppercase rounded-2xl transition-all ${type === t ? 'bg-white text-black' : 'text-zinc-500'}`}>{t === 'expense' ? 'Gasto' : t === 'income' ? 'Ingreso' : 'Compra $'}</button>)}
+                    </div>
+                    <div className="glass p-8 rounded-5xl space-y-6">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div><label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest pl-1">Fecha</label><input type="date" className="w-full p-4 rounded-2xl mt-1 outline-none font-bold text-sm" value={date} onChange={e => setDate(e.target.value)} /></div>
+                            <div><label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest pl-1">Quién</label><select className="w-full p-4 rounded-2xl mt-1 outline-none font-bold text-sm" value={mId} onChange={e => setMId(e.target.value)}>{members.map(m => <option key={m.id} value={m.id} className="bg-zinc-900">{m.name}</option>)}</select></div>
+                        </div>
+                        {type !== 'usd_purchase' ? (
+                            <div className="flex space-x-2">
+                                <div className="flex-1"><label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest pl-1">Monto</label><input type="number" className="w-full p-5 text-center rounded-[2rem] text-4xl font-extrabold outline-none" value={amt} onChange={e => setAmt(e.target.value)} /></div>
+                                <div className="w-24"><label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest text-center pl-1">Moneda</label><select className="w-full h-[76px] rounded-2xl text-xl font-extrabold outline-none px-4 text-center" value={cur} onChange={e => setCur(e.target.value)}><option value="VES">Bs.</option><option value="USD">$</option></select></div>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-2 gap-4 bg-white/5 p-6 rounded-4xl border border-white/5">
+                                <div><label className="text-[9px] font-black text-zinc-600 uppercase mb-2 block">Bs Pagados</label><input type="number" className="w-full bg-white/5 p-3 rounded-xl font-bold font-mono outline-none" value={vP} onChange={e => setVP(e.target.value)} /></div>
+                                <div><label className="text-[9px] font-black text-zinc-600 uppercase mb-2 block">USD Recibidos</label><input type="number" className="w-full bg-white/5 p-3 rounded-xl font-bold font-mono outline-none" value={uR} onChange={e => setUR(e.target.value)} /></div>
+                            </div>
+                        )}
+                        <div>
+                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest pl-1 mb-2 block">{type === 'income' ? 'Origen del Dinero' : (type === 'usd_purchase' ? 'Nota' : 'Establecimiento / Detalle')}</label>
+                            <input className="w-full p-4 rounded-2xl outline-none" placeholder={type === 'income' ? "Ej: Sueldo, Venta..." : "Ej: Automercado, Farmatodo..."} value={bus} onChange={e => setBus(e.target.value)} />
+                        </div>
+                        {type === 'expense' && (
+                            <div className="space-y-3">
+                                <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest pl-1 block">Categoría</label>
+                                <div className="flex flex-wrap gap-2">
+                                    {EXPENSE_CATEGORIES.map(c => <button key={c} onClick={() => setCat(c)} className={`px-4 py-2 rounded-full text-[10px] font-bold border transition-all ${cat === c ? 'bg-white text-black border-white' : 'border-white/10 text-zinc-500'}`}>{c}</button>)}
+                                </div>
+                            </div>
+                        )}
+                        <button disabled={loading} onClick={submit} className="w-full btn-primary text-white py-6 rounded-4xl font-extrabold shadow-2xl transition-all flex items-center justify-center space-x-3 mt-4">
+                            {loading ? <div className="loader"></div> : <><span className="text-sm uppercase tracking-widest">Guardar Movimiento</span><Icon name="check-circle" size={24} /></>}
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- LIST COMPONENT ---
+        const TransactionList = ({ members, transactions, onBack, onEdit }) => (
+            <div className="p-6 pb-40 max-w-md mx-auto animate-in pt-6">
+                <header className="flex items-center space-x-6 py-6"><button onClick={onBack} className="glass p-3 rounded-2xl"><Icon name="arrow-left" size={20} /></button><h2 className="text-2xl font-extrabold">Historial</h2></header>
+                <div className="space-y-4">
+                    {transactions.length ? [...transactions].sort((a, b) => b.date.localeCompare(a.date)).map(t => (
+                        <div key={t.id} onClick={() => onEdit(t)} className="glass-dark p-6 rounded-4xl flex items-center justify-between active:scale-95 transition-all">
+                            <div className="flex items-center space-x-4">
+                                <div className={`p-3 rounded-2xl ${t.type === 'income' ? 'bg-emerald-500/10 text-emerald-400' : t.type === 'usd_purchase' ? 'bg-brand-500/10 text-brand-400' : 'bg-white/5 text-zinc-500'}`}><Icon name={t.type === 'income' ? 'plus' : t.type === 'usd_purchase' ? 'refresh-cw' : 'tag'} size={20} /></div>
+                                <div><p className="font-bold text-sm uppercase tracking-tight text-white mb-0.5">{t.business || t.category}</p><p className="text-[9px] font-bold text-zinc-600 uppercase italic">{new Date(t.date).toLocaleDateString()} • {members.find(m => m.id === t.memberId)?.name}</p></div>
+                            </div>
+                            <div className="text-right">
+                                <p className={`font-black text-base ${t.type === 'income' ? 'text-emerald-400' : t.type === 'usd_purchase' ? 'text-brand-400' : 'text-white'}`}>{t.type === 'usd_purchase' ? `+$${t.usdReceived}` : `${t.currency === 'USD' ? '$' : 'Bs.'}${t.amount.toLocaleString()}`}</p>
+                                <button onClick={async e => { e.stopPropagation(); if (confirm('¿Eliminar?')) await deleteDoc(doc(db, "transactions", t.id)); }} className="text-[8px] text-zinc-800 font-black uppercase tracking-widest mt-1">Eliminar</button>
+                            </div>
+                        </div>
+                    )) : <p className="text-center py-20 text-zinc-500 uppercase text-[10px] font-black tracking-widest">Sin movimientos</p>}
+                </div>
+            </div>
+        );
+
+        // --- REPORTS COMPONENT ---
+        const Reports = ({ transactions, latestRate, onBack }) => {
+            const currentMonthTransactions = useMemo(() => {
+                const now = new Date();
+                return transactions.filter(t => {
+                    const d = new Date(t.date);
+                    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+                });
+            }, [transactions]);
+
+            const expenseStats = useMemo(() => {
+                const cats = {}; let total = 0;
+                currentMonthTransactions.filter(t => t.type === 'expense').forEach(t => {
+                    const usdVal = t.currency === 'USD' ? t.amount : (t.amount / (t.rateSnapshot || latestRate));
+                    cats[t.category] = (cats[t.category] || 0) + usdVal;
+                    total += usdVal;
+                });
+                return { items: Object.entries(cats).sort((a, b) => b[1] - a[1]), total };
+            }, [currentMonthTransactions, latestRate]);
+
+            const incomeStats = useMemo(() => {
+                const srcs = {}; let total = 0;
+                currentMonthTransactions.filter(t => t.type === 'income').forEach(t => {
+                    const usdVal = t.currency === 'USD' ? t.amount : (t.amount / (t.rateSnapshot || latestRate));
+                    const src = t.business || 'Varios';
+                    srcs[src] = (srcs[src] || 0) + usdVal;
+                    total += usdVal;
+                });
+                return { items: Object.entries(srcs).sort((a, b) => b[1] - a[1]), total };
+            }, [currentMonthTransactions, latestRate]);
+
+            return (
+                <div className="p-6 pb-40 max-w-md mx-auto animate-in pt-6">
+                    <header className="flex items-center space-x-6 py-6"><button onClick={onBack} className="glass p-3 rounded-2xl"><Icon name="arrow-left" size={20} /></button><h2 className="text-2xl font-extrabold">Reportes</h2></header>
+                    <div className="space-y-8">
+                        {/* Expenses Section */}
+                        <div className="space-y-4">
+                            <h3 className="text-[10px] font-black text-brand-400 uppercase tracking-[0.3em] pl-2">Gastos por Categoría</h3>
+                            <div className="glass p-8 rounded-5xl space-y-6">
+                                <div className="text-center"><p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Gasto Mensual Total</p><p className="text-4xl font-black">${expenseStats.total.toFixed(2)}</p></div>
+                                <div className="space-y-6">
+                                    {expenseStats.items.map(([cat, val]) => (
+                                        <div key={cat} className="space-y-2">
+                                            <div className="flex justify-between text-sm font-bold"><span>{cat}</span><span className="text-zinc-400">${val.toFixed(2)} <span className="text-[10px] ml-1 opacity-50">({((val / expenseStats.total) * 100).toFixed(0)}%)</span></span></div>
+                                            <div className="h-2 bg-white/5 rounded-full overflow-hidden relative"><div className="h-full bg-brand-500 rounded-full" style={{ width: `${(val / expenseStats.total) * 100}%` }}></div></div>
+                                        </div>
+                                    ))}
+                                    {expenseStats.items.length === 0 && <p className="text-center py-10 text-zinc-600 text-xs italic">Aún no hay compras este mes</p>}
+                                </div>
+                            </div>
+                        </div>
+                        {/* Income Section */}
+                        <div className="space-y-4">
+                            <h3 className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.3em] pl-2">Origen de Ingresos</h3>
+                            <div className="glass p-8 rounded-5xl space-y-6">
+                                <div className="text-center"><p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Ingreso Mensual Total</p><p className="text-4xl font-black text-emerald-400">${incomeStats.total.toFixed(2)}</p></div>
+                                <div className="space-y-5">
+                                    {incomeStats.items.map(([src, val]) => (
+                                        <div key={src} className="flex justify-between items-center p-4 bg-white/5 rounded-2xl">
+                                            <div><p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1">Fuente</p><p className="font-extrabold text-white uppercase">{src}</p></div>
+                                            <div className="text-right"><p className="text-xl font-black text-emerald-400">${val.toFixed(2)}</p><p className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">{((val / incomeStats.total) * 100).toFixed(1)}%</p></div>
+                                        </div>
+                                    ))}
+                                    {incomeStats.items.length === 0 && <p className="text-center py-10 text-zinc-600 text-xs italic">Aún no hay ingresos registrados</p>}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        };
+
+        // --- MAIN APP ---
+        const App = () => {
+            const [view, setView] = useState('loading');
+            const [household, setHousehold] = useState(null);
+            const [txs, setTxs] = useState([]);
+            const [rates, setRates] = useState({});
+            const [editData, setEditData] = useState(null);
+            const [ready, setReady] = useState(false);
+
+            useEffect(() => {
+                const start = async () => {
+                    const user = localStorage.getItem('hf_user');
+                    if (user) {
+                        const snap = await getDoc(doc(db, "households", user));
+                        if (snap.exists()) {
+                            setHousehold(snap.data());
+                            onSnapshot(query(collection(db, "transactions"), where("householdId", "==", snap.data().id)), s => setTxs(s.docs.map(d => d.data())));
+                            onSnapshot(query(collection(db, "rates"), where("householdId", "==", snap.data().id)), s => { const r = {}; s.docs.forEach(d => r[d.data().date] = d.data().rate); setRates(r); });
+                            setView('dash');
+                        } else setView('login');
+                    } else setView('login');
+                    setReady(true);
+                };
+                start();
+            }, []);
+
+            const lRate = useMemo(() => { const d = Object.keys(rates).sort().reverse(); return d.length ? rates[d[0]] : 407.38; }, [rates]);
+
+            const login = (h) => {
+                setHousehold(h); setView('dash');
+                onSnapshot(query(collection(db, "transactions"), where("householdId", "==", h.id)), s => setTxs(s.docs.map(d => d.data())));
+                onSnapshot(query(collection(db, "rates"), where("householdId", "==", h.id)), s => { const r = {}; s.docs.forEach(d => r[d.data().date] = d.data().rate); setRates(r); });
+            };
+
+            if (!ready || view === 'loading') return <div className="flex flex-col items-center justify-center min-h-screen"><div className="loader mb-4"></div><p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest animate-pulse">Cargando Hogar</p></div>;
+            if (view === 'login') return <Login onLogin={login} />;
+
+            return (
+                <div className="min-h-screen">
+                    {view === 'dash' && <Dashboard household={household} transactions={txs} latestRate={lRate} onNav={setView} />}
+                    {view === 'reports' && <Reports transactions={txs} latestRate={lRate} onBack={() => setView('dash')} />}
+                    {(view === 'add' || view === 'edit') && <TransactionForm members={household.members} householdId={household.id} onBack={() => setView('dash')} onSave={() => setView('dash')} editData={view === 'edit' ? editData : null} />}
+                    {view === 'list' && <TransactionList members={household.members} transactions={txs} onBack={() => setView('dash')} onEdit={(t) => { setEditData(t); setView('edit'); }} />}
+                    {view === 'settings' && (
+                        <div className="flex flex-col items-center justify-center min-h-screen p-10 text-center slide-up">
+                            <div className="bg-zinc-900 p-8 rounded-5xl border border-white/5 mb-10"><Icon name="user" size={48} className="text-zinc-500" /></div>
+                            <h2 className="text-3xl font-extrabold mb-2 uppercase tracking-tight">Opciones</h2>
+                            <p className="text-sm text-zinc-500 font-bold mb-16 italic">Hogar de {household.username}</p>
+                            <div className="w-full max-w-xs space-y-4">
+                                <button onClick={() => { localStorage.clear(); location.reload(); }} className="w-full bg-rose-500/10 text-rose-500 border border-rose-500/20 py-6 rounded-3xl font-black uppercase tracking-widest text-[11px]">Salir del Hogar</button>
+                                <button onClick={() => setView('dash')} className="p-4 text-zinc-600 font-black uppercase text-[10px] tracking-widest">Volver</button>
+                            </div>
+                        </div>
+                    )}
+                    {view === 'rates' && (
+                        <div className="flex flex-col items-center justify-center min-h-screen p-10 text-center slide-up">
+                            <div className="bg-brand-500/10 p-8 rounded-5xl text-brand-400 mb-10"><Icon name="trending-up" size={56} /></div>
+                            <h2 className="text-4xl font-extrabold mb-2 tracking-tight">Tasa BCV</h2>
+                            <p className="text-[10px] text-zinc-500 font-black mb-12 uppercase tracking-widest">Bolívares por Dólar</p>
+                            <input id="rInput" type="number" step="0.01" defaultValue={lRate} className="w-full max-w-xs bg-white/5 p-8 rounded-4xl text-center text-6xl font-black outline-none border border-white/5 focus:border-brand-500/50 transition-all" />
+                            <div className="grid grid-cols-2 gap-4 w-full max-w-xs mt-12">
+                                <button onClick={() => setView('dash')} className="p-5 glass rounded-3xl font-black text-[10px] uppercase">Cancelar</button>
+                                <button onClick={async () => { const v = parseFloat(document.getElementById('rInput').value); await setDoc(doc(db, "rates", `${household.id}_${new Date().toISOString().split('T')[0]}`), { householdId: household.id, date: new Date().toISOString().split('T')[0], rate: v }); setView('dash'); }} className="p-5 btn-primary text-white rounded-3xl font-black text-[10px] uppercase">Guardar</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
